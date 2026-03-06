@@ -53,8 +53,13 @@ public class Player : MonoBehaviour
         targetPos = transform.position;
         startTime = Time.time;
 
-        gridOrigin = new Vector2(transform.position.x, transform.position.y);        
+        gridOrigin = new Vector2(transform.position.x, transform.position.y);     
 
+        // pass grid origin to enemy spawner
+        EnemySpawner spawner = FindFirstObjectByType<EnemySpawner>();
+        if (spawner != null)
+            spawner.gridOrigin = gridOrigin;
+            
         inputActions = new InputSystem_Actions();
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
@@ -122,16 +127,6 @@ public class Player : MonoBehaviour
 
             float minY = gridOrigin.y;
             float maxY = gridOrigin.y + (gridHeight - 1) * gridSize;
-
-            Debug.Log(minX);
-            Debug.Log(maxX);
-            Debug.Log(minY);
-            Debug.Log(maxY);
-            Debug.Log(transform);
-            Debug.Log(proposedTarget);
-
-            // proposedTarget.x = Mathf.Clamp(proposedTarget.x, minX, maxX);
-            // proposedTarget.y = Mathf.Clamp(proposedTarget.y, minY, maxY);
 
             if (proposedTarget.x >= minX && proposedTarget.x <= maxX &&
                 proposedTarget.y >= minY && proposedTarget.y <= maxY)
