@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private TMP_Text timerText;
 
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;       // units per second
-    [SerializeField] private float gridSize = 1f;        // size of one grid cell
+    [SerializeField] private float moveSpeed = 10f;       // units per second
+    [SerializeField] private float gridSize = 35f;        // size of one grid cell
 
     [Header("Animation Frames")]
     [SerializeField] private Sprite[] upFrames;          // 2 frames
@@ -20,6 +20,12 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite[] rightFrames;       // 2 frames
     [SerializeField] private float frameTime = 0.3f;     // seconds per frame
     
+
+    [Header("Grid Bounds")]
+    [SerializeField] private int gridWidth = 8;
+    [SerializeField] private int gridHeight = 8;
+    [SerializeField] private Vector2 gridOrigin = Vector2.zero;
+
     private Vector2 moveInput;
     private Vector3 targetPos;
     private bool isMoving = false;
@@ -46,6 +52,8 @@ public class Player : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         targetPos = transform.position;
         startTime = Time.time;
+
+        gridOrigin = new Vector2(transform.position.x, transform.position.y);        
 
         inputActions = new InputSystem_Actions();
         inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
@@ -107,8 +115,32 @@ public class Player : MonoBehaviour
             else if (moveDir == Vector3.right)
                 lastDirection = Direction.Right;
 
-            targetPos = transform.position + moveDir * gridSize;
-            StartCoroutine(MoveToTarget());
+            Vector3 proposedTarget = transform.position + moveDir * gridSize;
+
+            float minX = gridOrigin.x;
+            float maxX = gridOrigin.x + (gridWidth - 1) * gridSize;
+
+            float minY = gridOrigin.y;
+            float maxY = gridOrigin.y + (gridHeight - 1) * gridSize;
+
+            Debug.Log(minX);
+            Debug.Log(maxX);
+            Debug.Log(minY);
+            Debug.Log(maxY);
+            Debug.Log(transform);
+            Debug.Log(proposedTarget);
+
+            // proposedTarget.x = Mathf.Clamp(proposedTarget.x, minX, maxX);
+            // proposedTarget.y = Mathf.Clamp(proposedTarget.y, minY, maxY);
+
+            if (proposedTarget.x >= minX && proposedTarget.x <= maxX &&
+                proposedTarget.y >= minY && proposedTarget.y <= maxY)
+            {
+                targetPos = proposedTarget;
+                StartCoroutine(MoveToTarget());
+            }
+            
+
         }
     }
 
