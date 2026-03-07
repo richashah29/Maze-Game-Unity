@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.IO;
+using System.Text;
 
 public class TimerManager : MonoBehaviour
 {
@@ -30,8 +32,8 @@ public class TimerManager : MonoBehaviour
 
         if (timerText != null)
             timerText.text = 
-                $"Accuracy: {(accuracy * 100f):F1}%\n" +
-                $"Time: {totalTime:F2}s";
+                $"Accuracy: {(accuracy * 100f):F0}%\n" +
+                $"Time: {totalTime:F1}s";
     }
 
     public void StartRun()
@@ -54,10 +56,12 @@ public class TimerManager : MonoBehaviour
         if (finishText != null)
         {
             finishText.text =
-                $"Accuracy: {(accuracy * 100f):F1}%\n" +
-                $"Enemy Time: {enemyTime:F2}s\n" +
-                $"Total Time: {totalTime:F2}s";
+                $"Accuracy: {(accuracy * 100f):F0}%\n" +
+                $"Enemy Time: {enemyTime:F1}s\n" +
+                $"Total Time: {totalTime:F1}s";
         }
+
+        SaveResults(accuracy, enemyTime, totalTime);
     }
 
     public void StartTouching()
@@ -68,5 +72,26 @@ public class TimerManager : MonoBehaviour
     public void StopTouching()
     {
         touchingCount = Mathf.Max(0, touchingCount - 1);
+    }
+
+    void SaveResults(float accuracy, float enemyTime, float totalTime)
+    {
+        string path ="results.csv";
+
+        bool fileExists = File.Exists(path);
+
+        StringBuilder sb = new StringBuilder();
+
+        // write header if file doesn't exist
+        if (!fileExists)
+        {
+            sb.AppendLine("Accuracy,EnemyTime,TotalTime");
+        }
+
+        sb.AppendLine($"{accuracy},{enemyTime},{totalTime}");
+
+        File.AppendAllText(path, sb.ToString());
+
+        Debug.Log("Saved results to: " + path);
     }
 }
