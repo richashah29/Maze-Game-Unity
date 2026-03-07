@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int gridWidth = 8;
     [SerializeField] private int gridHeight = 8;
     [SerializeField] private Vector2 gridOrigin = Vector2.zero;
+    [SerializeField] private TimerManager timerManager;
 
     private Vector2 moveInput;
     private Vector3 targetPos;
@@ -39,7 +40,6 @@ public class Player : MonoBehaviour
     private float startTime;
 
     private InputSystem_Actions inputActions;
-
     private enum Direction
     {
         Up,
@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         AnimateCharacter();
-        UpdateTimer();
     }
 
     private Vector3 GetMoveDirection(Vector2 input)
@@ -108,8 +107,11 @@ public class Player : MonoBehaviour
 
         Vector3 moveDir = GetMoveDirection(moveInput);
 
+
         if (moveDir != Vector3.zero)
         {
+            timerManager.StartRun();
+
             // update lastDirection using enum
             if (moveDir == Vector3.up)
                 lastDirection = Direction.Up;
@@ -180,17 +182,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Finish") && m_FinishText != null)
         {
-            float elapsed = Time.time - startTime;
-            m_FinishText.text = $"You finished in {elapsed:F3}s";
-        }
-    }
-
-    private void UpdateTimer()
-    {
-        if (timerText != null)
-        {
-            float elapsed = Time.time - startTime;
-            timerText.text = $"Time: {elapsed:F2}s";
+            timerManager.FinishRun();
         }
     }
 }
