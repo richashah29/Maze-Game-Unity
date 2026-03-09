@@ -76,22 +76,23 @@ public class TimerManager : MonoBehaviour
 
     void SaveResults(float accuracy, float enemyTime, float totalTime)
     {
-        string path ="results.csv";
+    string path = "results.csv";
+    bool fileExists = File.Exists(path);
+    StringBuilder sb = new StringBuilder();
 
-        bool fileExists = File.Exists(path);
+    // Updated Header to include 2 new categories
+    if (!fileExists){
+        sb.AppendLine("PlayerType,FeedbackType,Accuracy,EnemyTime,TotalTime");
+    }
 
-        StringBuilder sb = new StringBuilder();
+    // Grabbing the data from your Welcome Page script
+    string playerType = MenuLogic.PlayerType;
+    string feedbackType = MenuLogic.FeedbackType;
 
-        // write header if file doesn't exist
-        if (!fileExists)
-        {
-            sb.AppendLine("Accuracy,EnemyTime,TotalTime");
-        }
+    // 3. Adding them to the start of the row
+    sb.AppendLine($"{playerType},{feedbackType},{accuracy},{enemyTime},{totalTime}");
 
-        sb.AppendLine($"{accuracy},{enemyTime},{totalTime}");
-
-        File.AppendAllText(path, sb.ToString());
-
-        Debug.Log("Saved results to: " + path);
+    File.AppendAllText(path, sb.ToString());
+    Debug.Log("Saved results to: " + path);
     }
 }
