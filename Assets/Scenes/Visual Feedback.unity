@@ -178,8 +178,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You have reached the goal!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 18b38c481b736db44924cd3d4b4bcd4f, type: 2}
+  m_sharedMaterial: {fileID: 5049970915523391836, guid: 18b38c481b736db44924cd3d4b4bcd4f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -475,7 +475,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.5169811, g: 0.5169811, b: 0.5169811, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -647,6 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TimerManager
   timerText: {fileID: 1398307796}
   finishText: {fileID: 403927352}
+  warningText: {fileID: 0}
 --- !u!222 &656056131
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1185,10 +1186,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 18b38c481b736db44924cd3d4b4bcd4f, type: 2}
+  m_sharedMaterial: {fileID: 5049970915523391836, guid: 18b38c481b736db44924cd3d4b4bcd4f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1251,7 +1252,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -55.64984, z: 0, w: 0}
+  m_margin: {x: -41.945816, y: -216.81006, z: -89.41086, w: 107.072205}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

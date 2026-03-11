@@ -12,7 +12,7 @@ public class MenuLogic : MonoBehaviour
     public void PickVisual() 
     { 
         FeedbackType = "Visual"; 
-        SceneManager.LoadScene("Main"); 
+        SceneManager.LoadScene("Visual Feedback"); 
     }
 
     public void PickText() 
