@@ -3,26 +3,29 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("References")]
-    public TimerManager timerManager;  // reference to central timer manager
+    public TimerManager timerManager; 
     private SpriteRenderer sr;
-
-    private bool isTouchingPlayer = false;
 
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        sr.enabled = false; // invisible by default
+        sr.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            sr.enabled = true;       // show enemy
-            isTouchingPlayer = true;
-
-            if (timerManager != null)
+            // CHOICE A: Visual Feedback (Show the Sprite)
+            if (MenuLogic.FeedbackType == "Visual")
+            {
+                sr.enabled = true; 
+            }
+            
+            // CHOICE B: Text Feedback (Handled inside TimerManager)
+            if (timerManager != null){
                 timerManager.StartTouching();
+            }
         }
     }
 
@@ -30,11 +33,11 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            sr.enabled = false;      // hide enemy
-            isTouchingPlayer = false;
+            sr.enabled = false; // Always hide sprite when leaving
 
-            if (timerManager != null)
+            if (timerManager != null) {
                 timerManager.StopTouching();
+            }
         }
     }
 }

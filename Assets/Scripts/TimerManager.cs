@@ -3,11 +3,14 @@ using TMPro;
 using System.IO;
 using System.Text;
 
+
 public class TimerManager : MonoBehaviour
 {
     [Header("UI")]
     public TMP_Text timerText;
     public TMP_Text finishText;
+
+    public GameObject warningText;
 
     private float totalStartTime;
     private float enemyTime = 0f;
@@ -17,13 +20,10 @@ public class TimerManager : MonoBehaviour
 
     private int touchingCount = 0;
 
-    void Update()
-    {
-        if (!runStarted || runFinished)
-            return;
+    void Update(){
+        if (!runStarted || runFinished) {return;}
 
-        if (touchingCount > 0)
-        {
+        if (touchingCount > 0){
             enemyTime += Time.deltaTime;
         }
 
@@ -36,16 +36,14 @@ public class TimerManager : MonoBehaviour
                 $"Time: {totalTime:F1}s";
     }
 
-    public void StartRun()
-    {
+    public void StartRun(){
         if (runStarted) return;
 
         runStarted = true;
         totalStartTime = Time.time;
     }
 
-    public void FinishRun()
-    {
+    public void FinishRun(){
         if (runFinished) return;
 
         runFinished = true;
@@ -64,14 +62,21 @@ public class TimerManager : MonoBehaviour
         SaveResults(accuracy, enemyTime, totalTime);
     }
 
-    public void StartTouching()
-    {
+    public void StartTouching(){
+    
         touchingCount++;
+
+        if (MenuLogic.FeedbackType == "Text" && warningText != null){
+            warningText.SetActive(true);
+        }
     }
 
-    public void StopTouching()
-    {
+    public void StopTouching(){
         touchingCount = Mathf.Max(0, touchingCount - 1);
+        
+        if (touchingCount == 0 && warningText != null){
+            warningText.SetActive(false);
+        }
     }
 
     void SaveResults(float accuracy, float enemyTime, float totalTime)

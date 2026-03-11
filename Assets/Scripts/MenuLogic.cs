@@ -18,12 +18,6 @@ public class MenuLogic : MonoBehaviour
     public void PickText() 
     { 
         FeedbackType = "Text"; 
-        // SceneManager.LoadScene("Main"); 
+        SceneManager.LoadScene("Text Feedback"); 
     }
-
-    // If there's a specific start button
-    // public void PlayGame()
-    // {
-    //     SceneManager.LoadScene("Main");
-    // }
 }
