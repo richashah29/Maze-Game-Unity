@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using System.Text;
@@ -11,6 +12,7 @@ public class TimerManager : MonoBehaviour
     public TMP_Text finishText;
 
     public GameObject warningText;
+    public Image flashImage;
 
     private float totalStartTime;
     private float enemyTime = 0f;
@@ -63,19 +65,37 @@ public class TimerManager : MonoBehaviour
     }
 
     public void StartTouching(){
-    
         touchingCount++;
 
-        if (MenuLogic.FeedbackType == "Text" && warningText != null){
-            warningText.SetActive(true);
+        if (MenuLogic.FeedbackType == "Text")
+        {
+            // 1. Show the Text Box
+            if (warningText != null) warningText.SetActive(true);
+
+            // 2. Turn on the Overlay and set the "tint"
+            if (flashImage != null)
+            {
+                flashImage.gameObject.SetActive(true);
+                // Red at 40% transparency
+                flashImage.color = new Color(1f, 0f, 0f, 0.4f); 
+            }
         }
     }
 
-    public void StopTouching(){
+    public void StopTouching()
+    {
         touchingCount = Mathf.Max(0, touchingCount - 1);
-        
-        if (touchingCount == 0 && warningText != null){
-            warningText.SetActive(false);
+        Debug.Log("Stopped touching. Current count: " + touchingCount); // Check this!
+
+        if (touchingCount == 0)
+        {
+            if (warningText != null) warningText.SetActive(false);
+
+            if (flashImage != null)
+            {
+                flashImage.color = new Color(1f, 0f, 0f, 0f);
+                flashImage.gameObject.SetActive(false);
+            }
         }
     }
 
