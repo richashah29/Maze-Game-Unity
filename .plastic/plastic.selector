@@ -1,4 +1,0 @@
-repository "MIE Maze Game/MIE Maze Game@3573806549816@cloud"
-  path "/"
-    br "/main"
-    co "/main"
