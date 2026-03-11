@@ -14,6 +14,7 @@ public class Flash : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         sr.enabled = false; // invisible by default
+        flash.color = new Color(1f, 0f, 0f, 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -39,4 +40,5 @@ public class Flash : MonoBehaviour
                 timerManager.StopTouching();
         }
     }
+
 }
