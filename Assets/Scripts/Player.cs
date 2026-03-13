@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
     {
         if (other.CompareTag("Finish") && m_FinishText != null)
         {
+            inputActions.Disable();
             timerManager.FinishRun();
         }
     }

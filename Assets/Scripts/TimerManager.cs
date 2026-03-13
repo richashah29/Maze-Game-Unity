@@ -34,8 +34,8 @@ public class TimerManager : MonoBehaviour
 
         if (timerText != null)
             timerText.text = 
-                $"Accuracy: {(accuracy * 100f):F0}%\n" +
-                $"Time: {totalTime:F1}s";
+                $"{(accuracy * 100f):F0}%\n" +
+                $"{totalTime:F1}s";
     }
 
     public void StartRun(){
