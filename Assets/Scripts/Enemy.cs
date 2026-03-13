@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
 
         foreach (var enemy in allEnemies)
         {

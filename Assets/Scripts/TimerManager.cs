@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
-using System.Text;
 
 
 public class TimerManager : MonoBehaviour
@@ -19,6 +17,8 @@ public class TimerManager : MonoBehaviour
 
     private bool runStarted = false;
     private bool runFinished = false;
+
+    public Button finishButton;
 
     private int touchingCount = 0;
 
@@ -39,6 +39,7 @@ public class TimerManager : MonoBehaviour
     }
 
     public void StartRun(){
+        finishButton.gameObject.SetActive(false);
         if (runStarted) return;
 
         runStarted = true;
@@ -47,7 +48,8 @@ public class TimerManager : MonoBehaviour
 
     public void FinishRun(){
         if (runFinished) return;
-
+        finishButton.gameObject.SetActive(true);
+        
         runFinished = true;
 
         float totalTime = Time.time - totalStartTime;
@@ -101,23 +103,8 @@ public class TimerManager : MonoBehaviour
 
     void SaveResults(float accuracy, float enemyTime, float totalTime)
     {
-    string path = "results.csv";
-    bool fileExists = File.Exists(path);
-    StringBuilder sb = new StringBuilder();
-
-    // Updated Header to include 2 new categories
-    if (!fileExists){
-        sb.AppendLine("PlayerType,FeedbackType,Accuracy,EnemyTime,TotalTime");
-    }
-
-    // Grabbing the data from your Welcome Page script
-    string playerType = MenuLogic.PlayerType;
-    string feedbackType = MenuLogic.FeedbackType;
-
-    // 3. Adding them to the start of the row
-    sb.AppendLine($"{playerType},{feedbackType},{accuracy},{enemyTime},{totalTime}");
-
-    File.AppendAllText(path, sb.ToString());
-    Debug.Log("Saved results to: " + path);
+        // accuracy here is 0–1
+        string feedbackType = MenuLogic.FeedbackType;
+        ExperimentManager.RegisterRun(feedbackType, accuracy, enemyTime, totalTime);
     }
 }
