@@ -2,43 +2,54 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Text;
 using System.Linq;
+using UnityEngine; // Added for Debug.Log
 
 public static class ExperimentManager
 {
-    // Visual round results
     public static float accuracyVisual;
     public static float enemyTimeVisual;
     public static float totalTimeVisual;
 
-    // Text round results
     public static float accuracyText;
     public static float enemyTimeText;
     public static float totalTimeText;
+
+    // Track if we have received data for both rounds
+    private static bool hasVisualData = false;
+    private static bool hasTextData = false;
 
     public static void Reset()
     {
         accuracyVisual = enemyTimeVisual = totalTimeVisual = 0f;
         accuracyText = enemyTimeText = totalTimeText = 0f;
+        hasVisualData = false;
+        hasTextData = false;
     }
 
     public static void RegisterRun(string feedbackType, float accuracy01, float enemyTime, float totalTime)
     {
         if (feedbackType == "Visual")
         {
-            // Save visual-feedback round; wait for user to continue to type 2
             accuracyVisual = accuracy01;
             enemyTimeVisual = enemyTime;
             totalTimeVisual = totalTime;
+            hasVisualData = true;
+            Debug.Log("Visual Data Registered");
         }
         else if (feedbackType == "Text")
         {
-            // Save text-feedback round and write combined row
             accuracyText = accuracy01;
             enemyTimeText = enemyTime;
             totalTimeText = totalTime;
+            hasTextData = true;
+            Debug.Log("Text Data Registered");
+        }
 
+        // ONLY save if BOTH halves are complete
+        if (hasVisualData && hasTextData)
+        {
             SaveCombinedRow();
-            Reset();
+            Reset(); // Clear everything for the next participant
         }
     }
 
@@ -51,25 +62,21 @@ public static class ExperimentManager
 
         if (File.Exists(path))
         {
-            // check first line
             string firstLine = File.ReadLines(path).FirstOrDefault();
             if (firstLine != null && firstLine.Trim() == header)
             {
-                writeHeader = false; // header already exists
+                writeHeader = false;
             }
         }
 
         StringBuilder sb = new StringBuilder();
+        if (writeHeader) sb.AppendLine(header);
 
-        if (writeHeader)
-        {
-            sb.AppendLine(header);
-        }
-
-        string playerType = MenuLogic.PlayerType;
+        string playerType = MenuLogic.PlayerType; 
 
         sb.AppendLine($"{playerType},{accuracyVisual},{enemyTimeVisual},{totalTimeVisual},{accuracyText},{enemyTimeText},{totalTimeText}");
 
         File.AppendAllText(path, sb.ToString());
+        Debug.Log("CSV Row Saved Successfully!");
     }
 }
