@@ -1930,7 +1930,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1815351730}
         m_TargetAssemblyTypeName: MenuLogic, Assembly-CSharp
-        m_MethodName: EndGame
+        m_MethodName: LoadWelcome
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2007,6 +2007,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c575ea44443446eaeedbbf80b3d8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuLogic
+  startButton: {fileID: 0}
+  gamerButton: {fileID: 0}
+  nonGamerButton: {fileID: 0}
 --- !u!4 &1815351731
 Transform:
   m_ObjectHideFlags: 0
@@ -2056,8 +2059,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -310, y: 0}
+  m_AnchoredPosition: {x: 0.5, y: 0}
+  m_SizeDelta: {x: -163, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1916106953
 MonoBehaviour:

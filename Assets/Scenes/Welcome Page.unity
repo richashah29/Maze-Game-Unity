@@ -295,7 +295,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 523425352}
         m_TargetAssemblyTypeName: MenuLogic, Assembly-CSharp
-        m_MethodName: LoadFeedback1
+        m_MethodName: StartExperiment
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -373,8 +373,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuLogic
   startButton: {fileID: 207297245}
-  gamerButton: {fileID: 0}
-  nonGamerButton: {fileID: 0}
+  gamerButton: {fileID: 1018178155}
+  nonGamerButton: {fileID: 930165697}
 --- !u!4 &523425353
 Transform:
   m_ObjectHideFlags: 0
