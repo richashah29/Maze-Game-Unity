@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     private Vector2 moveInput;
     private Vector3 targetPos;
     private bool isMoving = false;
+    private bool requiresRelease = false;
 
     private SpriteRenderer sr;
     private Direction lastDirection = Direction.Down;       // default facing down
@@ -107,9 +108,21 @@ public class Player : MonoBehaviour
 
         Vector3 moveDir = GetMoveDirection(moveInput);
 
+        // Require the player to release the key before another move
+        if (requiresRelease)
+        {
+            if (moveDir == Vector3.zero)
+            {
+                // Key released, allow next step
+                requiresRelease = false;
+            }
+            return;
+        }
+
 
         if (moveDir != Vector3.zero)
         {
+            requiresRelease = true;
             timerManager.StartRun();
 
             // update lastDirection using enum
