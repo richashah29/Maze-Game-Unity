@@ -9,6 +9,7 @@ public class MenuLogic : MonoBehaviour
     
     // This stays true even when scenes change during one session
     private static bool isSecondRound = false;
+    public static bool IsSecondRound => isSecondRound;
 
     [Header("UI References")]
     public Button startButton;    
@@ -48,13 +49,14 @@ public class MenuLogic : MonoBehaviour
     private void LoadVisual() { FeedbackType = "Visual"; SceneManager.LoadScene("Visual Feedback"); }
     private void LoadText() { FeedbackType = "Text"; SceneManager.LoadScene("Text Feedback"); }
 
+    // Called by the "Continue"/"Finish" button shown after a run
     public void LoadWelcome()
     {
-        // If they just finished their first round, set up for the second
+        // If they just finished their first round, immediately start the second round
         if (!isSecondRound)
         {
             isSecondRound = true;
-            SceneManager.LoadScene("Welcome Page");
+            StartExperiment();   // go straight to the second game
         }
         else
         {
@@ -73,7 +75,31 @@ public class MenuLogic : MonoBehaviour
         }
     }
 
-    private void DisableTypeButtons() { /* ... your existing logic ... */ }
-    private void EnableTypeButtons() { /* ... your existing logic ... */ }
-    private void ResetMenu() { /* ... your existing logic ... */ }
+    private void DisableTypeButtons()
+    {
+        if (gamerButton != null)
+            gamerButton.interactable = false;
+
+        if (nonGamerButton != null)
+            nonGamerButton.interactable = false;
+    }
+
+    private void EnableTypeButtons()
+    {
+        if (gamerButton != null)
+            gamerButton.interactable = true;
+
+        if (nonGamerButton != null)
+            nonGamerButton.interactable = true;
+    }
+    
+    private void ResetMenu()
+    {
+        // Hide Start button
+        if (startButton != null)
+            startButton.gameObject.SetActive(false);
+
+        // Re-enable player type selection buttons
+        EnableTypeButtons();
+    }
 }
