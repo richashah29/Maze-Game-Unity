@@ -1857,6 +1857,7 @@ GameObject:
   - component: {fileID: 1780601877}
   - component: {fileID: 1780601876}
   - component: {fileID: 1780601875}
+  - component: {fileID: 1780601878}
   m_Layer: 5
   m_Name: Text_Btn
   m_TagString: Untagged
@@ -1978,6 +1979,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780601873}
   m_CullTransparentMesh: 1
+--- !u!114 &1780601878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780601873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ba7c4eabc9af64885d8f4677db9ced, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FinishButtonLabel
 --- !u!1 &1815351729
 GameObject:
   m_ObjectHideFlags: 0
